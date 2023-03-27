@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/appbar.dart';
 import 'package:go_router/go_router.dart';
 
 import 'errorview.dart';
@@ -13,23 +14,24 @@ final GoRouter _router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: '/error',
-      builder: (BuildContext context, GoRouterState state) =>
-      const ErrorView(),
+      builder: (BuildContext context, GoRouterState state) => const ErrorView(),
     ),
     ShellRoute(
       builder: (BuildContext context, GoRouterState state, Widget child) {
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('Starlight'),
+          body: Column(
+            children: [
+              const CustomAppBar(),
+              child,
+            ],
           ),
-          body: child,
         );
       },
       routes: <RouteBase>[
         GoRoute(
           path: '/',
           builder: (BuildContext context, GoRouterState state) =>
-          const HomePage(),
+              const HomePage(),
         ),
       ],
     ),
@@ -42,9 +44,6 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Starlight',
-      theme: ThemeData(),
-      routerConfig: _router
-    );
+        title: 'Starlight', theme: ThemeData(), routerConfig: _router);
   }
 }
