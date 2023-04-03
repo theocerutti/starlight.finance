@@ -1,42 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/appbar.dart';
-import 'package:go_router/go_router.dart';
+import 'package:frontend/theme/theme.dart';
 
-import 'errorview.dart';
-import 'homepage.dart';
+import 'routes/routes.dart';
+import 'utils/config.dart';
 
 void main() {
   runApp(const App());
 }
-
-final GoRouter _router = GoRouter(
-  errorBuilder: (BuildContext context, Object error) => const ErrorView(),
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/error',
-      builder: (BuildContext context, GoRouterState state) => const ErrorView(),
-    ),
-    ShellRoute(
-      builder: (BuildContext context, GoRouterState state, Widget child) {
-        return Scaffold(
-          body: Column(
-            children: [
-              const CustomAppBar(),
-              child,
-            ],
-          ),
-        );
-      },
-      routes: <RouteBase>[
-        GoRoute(
-          path: '/',
-          builder: (BuildContext context, GoRouterState state) =>
-              const HomePage(),
-        ),
-      ],
-    ),
-  ],
-);
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -44,6 +14,6 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-        title: 'Starlight', theme: ThemeData(), routerConfig: _router);
+        title: Config.title, theme: getThemeData(), routerConfig: getRoutes());
   }
 }
